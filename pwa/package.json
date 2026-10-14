@@ -1,0 +1,16 @@
+{
+  "name": "os1-pwa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OS1 thin-client PWA: installable phone shell over the same Orgo backend the OS1 Mac app uses. Sessions, Kanban, Files, Voice.",
+  "type": "module",
+  "scripts": {
+    "start": "node server/proxy.mjs",
+    "dev": "node server/proxy.mjs",
+    "check:themes": "node scripts/check-theme-contrast.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

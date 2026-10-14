@@ -1,0 +1,51 @@
+{
+  "$schema": "./theme.schema.json",
+  "spec": "opspot/os1-theme/v1",
+  "id": "default",
+  "name": "Her Coral",
+  "tagline": "The house look: coral on cream, warm and quiet.",
+  "colors": {
+    "light": {
+      "surface": "#D9C9AD",
+      "surface-raised": "#CFC0A6",
+      "brand": "#C65A43",
+      "brand-mid": "#C1553D",
+      "brand-light": "#D87660",
+      "brand-pale": "#E6AD86",
+      "brand-strong": "#A84832",
+      "on-surface": "rgba(56, 40, 30, 0.92)",
+      "on-surface-secondary": "rgba(72, 56, 44, 0.72)",
+      "on-surface-muted": "rgba(88, 72, 60, 0.50)",
+      "on-brand": "rgba(255, 255, 255, 0.95)",
+      "on-brand-secondary": "rgba(255, 255, 255, 0.70)",
+      "on-brand-muted": "rgba(255, 255, 255, 0.50)",
+      "glass-fill": "rgba(255, 255, 255, 0.10)",
+      "glass-border": "rgba(255, 255, 255, 0.30)",
+      "glass-fill-hover": "rgba(255, 255, 255, 0.20)",
+      "glass-border-hover": "rgba(255, 255, 255, 0.50)",
+      "overlay": "rgba(40, 30, 24, 0.18)",
+      "warning": "#E2A042",
+      "danger": "#C65A43",
+      "success": "#7BA88E",
+      "tabbar-bg": "rgba(217, 201, 173, 0.92)",
+      "brand-shadow": "rgba(168, 72, 50, 0.25)",
+      "brand-shadow-soft": "rgba(168, 72, 50, 0.18)",
+      "surface-shadow": "rgba(56, 40, 30, 0.10)",
+      "card-alt-bg": "rgba(255, 255, 255, 0.35)",
+      "col-bg": "rgba(255, 255, 255, 0.30)",
+      "input-bg": "rgba(255, 255, 255, 0.16)",
+      "inset-highlight": "rgba(255, 255, 255, 0.45)",
+      "on-warning": "rgba(40, 30, 24, 0.9)"
+    }
+  },
+  "radius": {
+    "base": "16px",
+    "small": "10px"
+  },
+  "accessibility": {
+    "checked": "2026-07-31",
+    "standard": "WCAG 2.1 AA",
+    "min_text_ratio": 2.09,
+    "notes": "Text and background color choices are provided for review."
+  }
+}

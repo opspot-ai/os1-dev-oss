@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/theme.schema.json",
+  "title": "OS1 theme",
+  "description": "A skin for the OS1 phone app. One file per customer org (or per niche starter kit). Only the eight required tokens must be supplied; every other token is derived from them at runtime by public/js/theme-core.js.",
+  "type": "object",
+  "required": ["spec", "id", "name", "colors"],
+  "additionalProperties": false,
+  "properties": {
+    "spec": {
+      "const": "opspot/os1-theme/v1",
+      "description": "Contract version. Bump only on a breaking change to the token set."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,39}$",
+      "description": "Stable slug. Also the filename (<id>.json) and the value of ?theme=."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Human name of the palette itself, not the business."
+    },
+    "tagline": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "One short line describing the look. Shown in tooling, never in the app."
+    },
+    "app_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "description": "Overrides the wordmark, the document title, and the installed app's name. Omit to keep OS1."
+    },
+    "logo": {
+      "type": "object",
+      "required": ["src"],
+      "additionalProperties": false,
+      "description": "Optional wordmark replacement. Must be same-origin: a remote URL is rejected at runtime so a themed install never calls off-box.",
+      "properties": {
+        "src": {
+          "type": "string",
+          "pattern": "^/[^/\\\\]\\S*$",
+          "description": "Absolute same-origin path, e.g. /icons/acme-wordmark.svg"
+        },
+        "alt": { "type": "string", "maxLength": 80 }
+      }
+    },
+    "radius": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": { "$ref": "#/$defs/length" },
+        "small": { "$ref": "#/$defs/length" }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "required": ["light"],
+      "additionalProperties": false,
+      "properties": {
+        "light": { "$ref": "#/$defs/palette" },
+        "dark": {
+          "$ref": "#/$defs/palette",
+          "description": "Optional. When present the app follows the phone's appearance setting; when absent the light palette is used in both."
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Recorded result of scripts/check-theme-contrast.mjs. Informational: the checker is the authority, not this block.",
+      "properties": {
+        "checked": { "type": "string", "format": "date" },
+        "standard": { "type": "string" },
+        "min_text_ratio": { "type": "number" },
+        "notes": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})|rgba?\\(\\s*\\d{1,3}\\s*,\\s*\\d{1,3}\\s*,\\s*\\d{1,3}\\s*(,\\s*(0|1|0?\\.\\d+)\\s*)?\\))$",
+      "description": "Hex or rgb()/rgba(). Anything else is dropped at runtime."
+    },
+    "length": {
+      "type": "string",
+      "pattern": "^\\d{1,3}(\\.\\d+)?(px|rem|em)$"
+    },
+    "palette": {
+      "type": "object",
+      "required": ["surface", "brand", "brand-strong", "on-surface", "on-brand", "success", "warning", "danger"],
+      "additionalProperties": false,
+      "properties": {
+        "surface": { "$ref": "#/$defs/color", "description": "The page background. Every screen sits on this." },
+        "surface-raised": { "$ref": "#/$defs/color", "description": "Derived: surface darkened 5 percent." },
+        "brand": { "$ref": "#/$defs/color", "description": "The hero fill. Cards, the top bar, tickets. Must carry on-brand text at 4.5:1." },
+        "brand-strong": { "$ref": "#/$defs/color", "description": "Pressed and active states, and the active tab label on surface. Must reach 4.5:1 on surface." },
+        "brand-mid": { "$ref": "#/$defs/color", "description": "Derived: brand darkened 3 percent." },
+        "brand-light": { "$ref": "#/$defs/color", "description": "Derived: brand lightened 12 percent." },
+        "brand-pale": { "$ref": "#/$defs/color", "description": "Derived: brand lightened 35 percent." },
+        "on-surface": { "$ref": "#/$defs/color", "description": "Body ink on surface. Warm near-black beats pure black." },
+        "on-surface-secondary": { "$ref": "#/$defs/color", "description": "Derived: on-surface flattened, then 72 percent alpha." },
+        "on-surface-muted": { "$ref": "#/$defs/color", "description": "Derived: on-surface flattened, then 50 percent alpha. Carries real 11px and 13px text, so it is contrast-checked like body copy." },
+        "on-brand": { "$ref": "#/$defs/color", "description": "Ink on the brand fill. Usually near-white." },
+        "on-brand-secondary": { "$ref": "#/$defs/color", "description": "Derived: on-brand at 70 percent alpha." },
+        "on-brand-muted": { "$ref": "#/$defs/color", "description": "Derived: on-brand at 50 percent alpha. Non-text (the idle status dot)." },
+        "glass-fill": { "$ref": "#/$defs/color" },
+        "glass-border": { "$ref": "#/$defs/color" },
+        "glass-fill-hover": { "$ref": "#/$defs/color" },
+        "glass-border-hover": { "$ref": "#/$defs/color" },
+        "overlay": { "$ref": "#/$defs/color", "description": "Derived: hairline borders and insets, on-surface at 18 percent." },
+        "success": { "$ref": "#/$defs/color", "description": "Connected dot. Non-text, needs 3:1 against brand." },
+        "warning": { "$ref": "#/$defs/color", "description": "Error dot and the offline banner fill." },
+        "danger": { "$ref": "#/$defs/color" },
+        "tabbar-bg": { "$ref": "#/$defs/color", "description": "Derived: surface at 92 percent, blurred over content." },
+        "brand-shadow": { "$ref": "#/$defs/color" },
+        "brand-shadow-soft": { "$ref": "#/$defs/color" },
+        "surface-shadow": { "$ref": "#/$defs/color" },
+        "card-alt-bg": { "$ref": "#/$defs/color" },
+        "col-bg": { "$ref": "#/$defs/color" },
+        "input-bg": { "$ref": "#/$defs/color" },
+        "inset-highlight": { "$ref": "#/$defs/color" },
+        "on-warning": { "$ref": "#/$defs/color", "description": "Derived: whichever of the theme's dark or light ink reads better on the warning fill." },
+        "radius": { "$ref": "#/$defs/length" },
+        "radius-small": { "$ref": "#/$defs/length" }
+      }
+    }
+  }
+}

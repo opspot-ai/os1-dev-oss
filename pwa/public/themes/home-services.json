@@ -1,0 +1,25 @@
+{
+  "$schema": "./theme.schema.json",
+  "spec": "opspot/os1-theme/v1",
+  "id": "home-services",
+  "name": "Copper Steel",
+  "tagline": "Dependable trade colors built for bright working light.",
+  "colors": {
+    "light": {
+      "surface": "#F2F4F6",
+      "brand": "#973D07",
+      "brand-strong": "#6E2D05",
+      "on-surface": "#1A1C1E",
+      "on-brand": "rgba(255, 255, 255, 0.96)",
+      "success": "#48C775",
+      "warning": "#F5A623",
+      "danger": "#E5484D"
+    }
+  },
+  "accessibility": {
+    "checked": "2026-07-31",
+    "standard": "WCAG 2.1 AA",
+    "min_text_ratio": 4.62,
+    "notes": "Text and background color choices are provided for review."
+  }
+}
